@@ -95,6 +95,7 @@ img#prev{max-width:100%;border-radius:16px;margin-top:10px}
 </div>
 <script>
 (function(){
+var BACKEND_URL = 'https://kasi-ai-backend.onrender.com';
 var $=function(s){return document.querySelector(s)};
 function ld(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
 function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
@@ -140,7 +141,26 @@ luffy:function(){var e=cur||AI.find(lastUser);var pre='Hey, you’re in Luffy Mo
 var m=lastUser.replace(/[x×]/g,'*').replace(/÷/g,'/').replace(/\^/g,'**');if(/^[\d\s+\-*\/().]+$/.test(m)&&/\d/.test(m)){try{var v=Function('return ('+m+')')();return pre+lastUser+' = '+v}catch(x){}}
 if(e)return pre+e.t+': '+e.a;return pre+'Ask me a question first, then press Luffy.'}};
 
-function ask(t){t=t.trim();if(!t)return;lastUser=t;msg('u',t);var r=AI.respond(t);msg('k',r.t,r.r);add(5);badge('First Question')}
+function ask(t){
+    t=t.trim();if(!t)return;lastUser=t;msg('u',t);
+    fetch(BACKEND_URL + '/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt: t, lang: S.lang })
+    })
+    .then(res => res.json())
+    .then(data => {
+        msg('k', data.t, data.r);
+        add(5);
+        badge('First Question');
+    })
+    .catch(err => {
+        var r = AI.respond(t);
+        msg('k', r.t, r.r);
+        add(5);
+        badge('First Question');
+    });
+}
 function go(n){document.querySelectorAll('.tab').forEach(function(x){x.classList.toggle('on',x.id==='t-'+n)});document.querySelectorAll('nav button').forEach(function(b){b.classList.toggle('on',b.dataset.go===n)});$('#inbar').style.display=n==='chat'?'flex':'none'}
 document.querySelectorAll('[data-go]').forEach(function(b){b.addEventListener('click',function(){go(b.dataset.go);if(b.dataset.listen)speak('Listen mode is on. Ask a question, then press Play and I’ll read the answer.')})});
 $('#send').onclick=function(){ask($('#q').value);$('#q').value=''};
