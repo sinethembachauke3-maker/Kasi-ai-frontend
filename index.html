@@ -1,98 +1,3 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Kasi AI (Mzansi AI)</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Nunito:wght@600;700;800&display=swap">
-<style>
-:root{--bg:#F7FBF4;--card:#fff;--ink:#12261A;--mut:#3F5A48;--line:#DCE9D5;--g:#0B7A43;--onG:#fff;--b:#1E6FD9;--y:#FFC93C;--o:#FF7A1A;--tint:#EEF6E8;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0F1A14;--card:#17261D;--ink:#EAF4EC;--mut:#A9C2B0;--line:#2A3F31;--g:#4CC285;--onG:#08160E;--b:#6FA8FF;--tint:#1E3126}}
-:root[data-theme="dark"]{--bg:#0F1A14;--card:#17261D;--ink:#EAF4EC;--mut:#A9C2B0;--line:#2A3F31;--g:#4CC285;--onG:#08160E;--b:#6FA8FF;--tint:#1E3126}
-*{box-sizing:border-box}html,body{height:100%;margin:0}
-body{background:var(--bg);color:var(--ink);font:700 16px/1.45 Nunito,system-ui,sans-serif}
-#app{max-width:560px;margin:0 auto;height:100%;display:flex;flex-direction:column}
-header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px}
-#logo{font:800 26px 'Baloo 2',sans-serif;color:var(--g);cursor:pointer;user-select:none}
-.chip{background:var(--y);color:#12261A;border-radius:99px;padding:6px 12px;font-size:14px;font-weight:800;margin-left:6px}
-main{flex:1;overflow:auto;padding:0 16px 12px}
-.tab{display:none}.tab.on{display:block}
-.card{background:var(--card);border:2px solid var(--line);border-radius:20px;padding:16px;margin-bottom:12px}
-h2{font:800 22px 'Baloo 2',sans-serif;margin:4px 0 10px}
-.hero{background:var(--g);color:var(--onG,#fff);border-radius:24px;padding:20px;margin-bottom:12px}
-.hero h2{margin:0 0 4px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
-button,select,input{font:inherit}
-.tile{border:0;border-radius:18px;padding:16px;min-height:84px;text-align:left;font:800 18px 'Baloo 2',sans-serif;color:#12261A;cursor:pointer}
-.btn{background:var(--g);color:var(--onG,#fff);border:0;border-radius:99px;padding:12px 18px;min-height:44px;font-weight:800;cursor:pointer}
-.btn.alt{background:var(--tint);color:var(--ink);border:2px solid var(--line)}
-.pill{background:var(--tint);color:var(--ink);border:2px solid var(--line);border-radius:99px;padding:10px 14px;min-height:44px;margin:0 6px 8px 0;font-weight:800;cursor:pointer}
-#msgs{display:flex;flex-direction:column;gap:10px;padding-bottom:6px}
-.m{max-width:88%;padding:12px 14px;border-radius:18px;white-space:pre-wrap}
-.u{align-self:flex-end;background:var(--y);color:#12261A;border-bottom-right-radius:4px}
-.k{align-self:flex-start;background:var(--card);border:2px solid var(--line);border-bottom-left-radius:4px}
-.ref{margin-top:8px;background:var(--tint);border-radius:12px;padding:8px 10px;color:var(--mut);font-size:14px}
-.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}
-.row{display:flex;gap:8px}
-input[type=text],input[type=date],select{flex:1;min-width:0;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:99px;padding:11px 16px;min-height:44px}
-nav{display:flex;background:var(--card);border-top:2px solid var(--line)}
-nav button{flex:1;border:0;background:none;color:var(--mut);min-height:56px;font-weight:800;font-size:13px;cursor:pointer}
-nav button.on{color:var(--g);box-shadow:inset 0 3px 0 var(--g)}
-#luffy{display:none}
-.opt{display:block;width:100%;text-align:left;margin:6px 0}
-.ok{background:var(--g)!important;color:var(--onG,#fff)!important}.no{background:var(--o)!important;color:#12261A!important}
-img#prev{max-width:100%;border-radius:16px;margin-top:10px}
-</style>
-</head>
-<body>
-<div id="app">
-<header><div id="logo" title="Kasi AI">Kasi AI</div><div><span class="chip" id="pts">0 pts</span><span class="chip" id="str">0 day streak</span></div></header>
-<main>
-<section class="tab on" id="t-home">
-<div class="hero"><h2 id="greet">Sharp, fam! Ready to cook?</h2><div>Grade R to 12. We go step by step, no stress.</div></div>
-<div class="grid">
-<button class="tile" style="background:var(--b);color:#fff" data-go="chat">Chat with Kasi</button>
-<button class="tile" style="background:var(--o)" data-go="cam">Homework Camera</button>
-<button class="tile" style="background:var(--y)" data-go="chat" data-listen="1">Listen Mode</button>
-<button class="tile" style="background:var(--card);border:2px solid var(--g);color:var(--g)" data-go="lib">Subjects &amp; Library</button>
-</div>
-<div class="card"><h2>Daily quiz</h2><div id="quiz"></div></div>
-<div class="card"><h2>Exam countdown</h2><div class="row"><input type="date" id="exam" aria-label="Exam date"></div><p id="examout" style="margin:10px 0 0"></p></div>
-<div class="card"><h2>Badges</h2><div id="badges">None yet. Ask a question to earn your first.</div></div>
-<div class="card"><h2>Language</h2><select id="lang" aria-label="Language"></select><p style="color:var(--mut);margin:8px 0 0;font-size:14px">Kasi greets you in your language and speaks it if your device has that voice. Explanations are in English for now.</p></div>
-</section>
-
-<section class="tab" id="t-chat">
-<div id="msgs"></div>
-<div class="bar"><button class="pill" id="next">Next hint</button><button class="pill" id="play">Play</button><button class="pill" id="pause">Pause</button><button class="pill" id="replay">Replay</button><button class="pill" id="luffy">Luffy</button></div>
-<label style="font-size:14px;color:var(--mut)">Speed <input type="range" id="rate" min="0.5" max="1.4" step="0.1" value="0.8"> <span id="rv">0.8x</span></label>
-</section>
-
-<section class="tab" id="t-cam">
-<h2>Homework Camera</h2>
-<div class="card"><p style="margin-top:0">Snap or upload your homework. I won’t hand over the answer, I’ll help you work it out.</p>
-<input type="file" id="file" accept="image/*" capture="environment" aria-label="Take or upload a photo">
-<img id="prev" alt="" hidden>
-<p id="camout"></p></div>
-</section>
-
-<section class="tab" id="t-lib">
-<h2>Subjects</h2><div id="subs"></div>
-<h2>Offline library</h2><div id="lib"></div>
-</section>
-
-<section class="tab" id="t-tips">
-<h2>Study tips</h2>
-<div class="card">Study in 25 minute bursts, then rest for 5. Your brain loves breaks.</div>
-<div class="card">Explain the topic out loud to a friend, a pet, or the mirror. If you get stuck, that’s the part to revise.</div>
-<div class="card">Do past papers. Mark yourself, then fix only the mistakes.</div>
-<div class="card">Sleep is part of studying. Your brain files what you learned while you rest.</div>
-<div class="card">Feeling scared about exams? Tell me in the chat. You’re not alone.</div>
-</section>
-</main>
-<div class="row" id="inbar" style="padding:8px 16px;display:none"><input type="text" id="q" placeholder="Type your question" aria-label="Your question"><button class="btn" id="send">Send</button></div>
-<nav><button data-go="home" class="on">Home</button><button data-go="chat">Chat</button><button data-go="cam">Camera</button><button data-go="lib">Library</button><button data-go="tips">Tips</button></nav>
-</div>
 <script>
 (function(){
 var BACKEND_URL = 'https://kasi-ai-backend.onrender.com';
@@ -100,22 +5,12 @@ var $=function(s){return document.querySelector(s)};
 function ld(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
 function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
 var S=ld('kasi',{pts:0,streak:0,last:'',badges:[],lang:'en',exam:''});
-var LANGS={en:['English','Sharp, fam! Ready to cook?','en-ZA'],zu:['isiZulu','Sawubona! Sharp, ready to cook?','zu-ZA'],xh:['isiXhosa','Molo! Sharp, ready to cook?','xh-ZA'],af:['Afrikaans','Haai! Sharp, ready to cook?','af-ZA'],st:['Sesotho','Dumela! Sharp, ready to cook?','st-ZA'],tn:['Setswana','Dumela! Sharp, ready to cook?','tn-ZA'],nso:['Sepedi','Dumela! Sharp, ready to cook?','nso-ZA'],ts:['Xitsonga','Avuxeni! Sharp, ready to cook?','ts-ZA'],ve:['Tshivenda','Ndaa! Sharp, ready to cook?','ve-ZA'],ss:['SiSwati','Sawubona! Sharp, ready to cook?','ss-ZA'],nr:['IsiNdebele','Lotjhani! Sharp, ready to cook?','nr-ZA']};
-var KB=[
-{k:['newton','force','acceleration','f=ma'],s:'Physical Sciences',t:'Newton’s Second Law',c:'The harder you push something, the faster it speeds up. The heavier it is, the harder it is to speed up. Think of pushing an empty trolley versus a full one.',st:['Write down what you are given: mass (kg), and force (N) or acceleration (m/s²).','Use F = m × a, then make the unknown the subject of the formula.','Substitute with units and calculate. Check that your unit makes sense (N = kg·m/s²).'],q:'Which two of F, m and a do you already know in your question?',r:'Grade 10 Physical Sciences, chapter on Newton’s Laws (see the contents page for page numbers).',a:'F = m × a. Example: m = 5 kg and a = 2 m/s² gives F = 10 N.'},
-{k:['photosynthesis','chlorophyll','plants make food'],s:'Life Sciences',t:'Photosynthesis',c:'Plants are tiny kitchens. They use light, water and carbon dioxide to make their own food (glucose) and release oxygen.',st:['List the inputs: light, water, carbon dioxide.','Name where it happens: chloroplasts, thanks to chlorophyll.','Write the outputs: glucose and oxygen.'],q:'Where do you think the plant gets each of its inputs from?',r:'Grade 10 or 11 Life Sciences, chapter on plant nutrition or energy transformations.',a:'6CO₂ + 6H₂O + light energy → C₆H₁₂O₆ + 6O₂, in the chloroplasts.'},
-{k:['pythagoras','hypotenuse','right-angled','right angled'],s:'Mathematics',t:'Theorem of Pythagoras',c:'In a right-angled triangle, the square on the longest side (hypotenuse) equals the sum of the squares on the other two sides.',st:['Find the right angle. The hypotenuse is the side opposite it.','Write c² = a² + b² with the hypotenuse as c.','Substitute, add or subtract, then take the square root.'],q:'Which side in your triangle is the hypotenuse?',r:'Grade 9 and 10 Mathematics, chapter on Euclidean Geometry or Trigonometry basics.',a:'c² = a² + b². Example: sides 3 and 4 give c = 5.'},
-{k:['quadratic','x²','x^2','factorise','factorize'],s:'Mathematics',t:'Quadratic equations',c:'A quadratic has an x² term. We want the values of x that make the whole thing equal zero.',st:['Move everything to one side so it equals 0.','Try to factorise. If it won’t, use the quadratic formula.','Set each factor equal to 0 and solve for x.'],q:'What are a, b and c in your equation (ax² + bx + c = 0)?',r:'Grade 10 to 11 Mathematics, chapter on Equations and Inequalities.',a:'x = (−b ± √(b² − 4ac)) ÷ 2a.'},
-{k:['fraction','fractions','common denominator'],s:'Mathematics',t:'Adding fractions',c:'You can only add pieces that are the same size, so first make the bottoms (denominators) match.',st:['Find a common denominator (the LCM of the bottoms).','Change each fraction, multiplying top and bottom by the same number.','Add the tops, keep the bottom, then simplify.'],q:'What is the smallest number both of your denominators go into?',r:'Grade 6 to 8 Mathematics, chapter on Common Fractions.',a:'Example: 1/2 + 1/3 = 3/6 + 2/6 = 5/6.'},
-{k:['mole','molar mass','moles'],s:'Physical Sciences',t:'The mole',c:'A mole is just a counting unit for tiny particles, like a dozen but much bigger.',st:['Find the molar mass M from the periodic table (g/mol).','Use n = m ÷ M.','Check your units: grams divided by g/mol gives mol.'],q:'What is the molar mass of your substance?',r:'Grade 11 Physical Sciences, chapter on Quantitative Aspects of Chemical Change.',a:'n = m ÷ M. Example: 18 g of water with M = 18 g/mol is 1 mol.'},
-{k:['percent','percentage','%'],s:'Mathematical Literacy',t:'Percentages',c:'Percent means out of 100. It’s a way to compare things fairly.',st:['Decide which number is the part and which is the whole.','Divide part by whole.','Multiply by 100.'],q:'In your question, what is the whole?',r:'Grade 8 to 10 Mathematics or Mathematical Literacy, chapter on Finance or Numbers.',a:'Percentage = part ÷ whole × 100. Example: 15 out of 60 is 25%.'},
-{k:['supply','demand','price'],s:'Economics',t:'Supply and demand',c:'When something costs more, people usually want less of it. Sellers want to sell more of it.',st:['Draw the axes: price up, quantity across.','Demand slopes down, supply slopes up.','Where they cross is the equilibrium price.'],q:'What do you think happens to price if demand suddenly goes up?',r:'Grade 10 to 12 Economics, chapter on Markets and the Price Mechanism.',a:'If demand rises and supply stays the same, equilibrium price and quantity both rise.'},
-{k:['accounting equation','assets','liabilities','equity'],s:'Accounting',t:'The accounting equation',c:'What a business owns is funded by the owner or by other people it owes.',st:['List what the business owns (assets).','List what it owes (liabilities).','Equity is what is left for the owner.'],q:'Which of your items are assets and which are liabilities?',r:'Grade 10 Accounting, chapter on the Accounting Equation.',a:'Assets = Equity + Liabilities.'}
-];
+var LANGS={en:['English','Sharp, fam! Ready to cook?','en-ZA'],zu:['isiZulu','Sawubona! Sharp, ready to cook?','zu-ZA'],xh:['isiXhosa','Molo! Sharp, ready to cook?','xh-ZA'],af:['Afrikaans','Haai! Sharp, ready to cook?','af-ZA'],st:['Sesotho','Dumela! Sharp, ready to cook?','st-ZA'],tn:['Setswana','Dumela! Sharp, ready to cook?','tn-ZA'],nso:['Sepedi','Dumela! Sharp, ready to cook?','nso-ZA'],ts:['Xitsonga','Avuxeni! Sharp, ready to cook?','ts-ZA'],ve:['Tshivenda','Ndaa! Sharp, ready to cook?','ts-ZA'],ss:['SiSwati','Sawubona! Sharp, ready to cook?','ss-ZA'],nr:['IsiNdebele','Lotjhani! Sharp, ready to cook?','nr-ZA']};
+
 var SUBJ=['Mathematics','Mathematical Literacy','Physical Sciences','Life Sciences','Natural Sciences','Technology','English','Afrikaans','isiZulu','isiXhosa','Geography','History','Accounting','Business Studies','Economics','Agricultural Sciences','Tourism','CAT','IT','Life Orientation','EGD'];
 var QZ=[['Force equals…','mass × acceleration','mass ÷ speed','speed × time',0],['Plants release…','oxygen','methane','helium',0],['Hypotenuse is opposite the…','right angle','smallest angle','base',0],['10% of 250 is…','25','2.5','52',0],['Assets = Equity + …','Liabilities','Sales','Tax',0],['Percent means out of…','100','10','1000',0],['Unit of force is the…','newton','joule','watt',0],['Where does photosynthesis happen?','chloroplast','nucleus','ribosome',0]];
 
-var cur=null,step=0,lastBot='',lastUser='',clicks=0;
+var cur=null,step=0,lastBot='',lastUser='',clicks=0,chatHistory=[];
 function ago(){return new Date().toDateString()}
 function save(){sv('kasi',S);$('#pts').textContent=S.pts+' pts';$('#str').textContent=S.streak+' day streak';var b=$('#badges');b.textContent=S.badges.length?S.badges.join('  |  '):'None yet. Ask a question to earn your first.'}
 function badge(n){if(S.badges.indexOf(n)<0){S.badges.push(n);msg('k','New badge: '+n+'! Eish, you’re on fire.')}}
@@ -124,49 +19,54 @@ function add(n){S.pts+=n;if(S.pts>=50)badge('50 Points Club');save()}
 
 function msg(w,t,ref){var d=document.createElement('div');d.className='m '+w;d.textContent=t;if(ref){var r=document.createElement('div');r.className='ref';r.textContent=ref;d.appendChild(r)}$('#msgs').appendChild(d);d.scrollIntoView({block:'end'});if(w==='k')lastBot=t+(ref?' '+ref:'');return d}
 
-var AI={
-detect:function(t){t=t.toLowerCase();if(/ngiyacela|ngicela|sawubona|yebo|usizo/.test(t))return 'zu';if(/ndiyacela|molo|enkosi|uncedo/.test(t))return 'xh';if(/asseblief|hoe |wat is|haai|ek /.test(t))return 'af';if(/ke kopa|dumela|ntshwarele/.test(t))return 'st';return null},
-feel:/scared|stress|anxious|worried|afraid|nervous|panic|overwhelm|ngiyesaba|ndiyoyika|sad|can.?t cope/i,
-find:function(t){t=t.toLowerCase();var best=null,sc=0;KB.forEach(function(e){var n=0;e.k.forEach(function(w){if(t.indexOf(w)>-1)n++});if(n>sc){sc=n;best=e}});return best},
-open:function(){return LANGS[S.lang][1].split('!')[0]+'! '},
-guide:function(e,i){var o=(i===0?e.c+'\n\n':'')+'Step '+(i+1)+': '+e.st[i];o+=i===0?'\n\n'+e.q:(i<e.st.length-1?'\n\nSay “next hint” when you’re ready for more.':'\n\nNow try it yourself and tell me what you get!');return o},
-respond:function(t){
-var l=AI.detect(t);if(l&&l!==S.lang){S.lang=l;$('#lang').value=l;save()}
-if(AI.feel.test(t))return{t:'Hey, relax. Exams are stressful, but you’re not alone and you’ve got this.\n\n1. Study in 25 minute bursts with 5 minute breaks.\n2. Start with the topic you find easiest to build confidence.\n3. Sleep and water help your brain more than a late night.\n\nWhat subject is worrying you most? We’ll do it together.'};
-if(/^(next|hint|step|more)/i.test(t.trim())&&cur){if(step<cur.st.length-1){step++}return{t:AI.guide(cur,step),r:'Textbook: '+cur.r}}
-var e=AI.find(t);
-if(e){cur=e;step=0;return{t:AI.open()+'Sharp, let’s cook this together. This one is about '+e.t+' ('+e.s+').\n\n'+AI.guide(e,0),r:'Textbook: '+e.r}}
-return{t:AI.open()+'Eish, I don’t have this one in my pocket library yet, but no stress. Let’s break it down:\n\n1. What is the question asking you to find?\n2. What information are you given?\n3. Which rule or formula links them?\n\nTell me your subject and grade and I’ll point you to the right textbook chapter. Try the Library tab too.'}},
-luffy:function(){var e=cur||AI.find(lastUser);var pre='Hey, you’re in Luffy Mode now.\n\nThis means I’m giving you the answer instead of helping you learn step-by-step.\n\nBefore you write this answer down ask yourself:\n\nDo you trust Luffy?\n\nBecause right now you’re not using Kasi AI the learning way.\n\n';
-var m=lastUser.replace(/[x×]/g,'*').replace(/÷/g,'/').replace(/\^/g,'**');if(/^[\d\s+\-*\/().]+$/.test(m)&&/\d/.test(m)){try{var v=Function('return ('+m+')')();return pre+lastUser+' = '+v}catch(x){}}
-if(e)return pre+e.t+': '+e.a;return pre+'Ask me a question first, then press Luffy.'}};
-
-function ask(t){
+// Async function to talk to your Render Backend API correctly!
+async function ask(t, isLuffy=false){
     t=t.trim();if(!t)return;lastUser=t;msg('u',t);
-    fetch(BACKEND_URL + '/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt: t, lang: S.lang })
-    })
-    .then(res => res.json())
-    .then(data => {
-        msg('k', data.t, data.r);
+    
+    try {
+        const response = await fetch(BACKEND_URL + '/api/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                message: t,
+                mode: isLuffy ? 'luffy' : 'normal',
+                lang: S.lang,
+                history: chatHistory
+            })
+        });
+        
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || 'AI unavailable');
+        
+        // Push to local conversation history for context memory
+        chatHistory.push({ role: 'user', text: t });
+        chatHistory.push({ role: 'model', text: data.reply });
+        if(chatHistory.length > 12) chatHistory = chatHistory.slice(-12);
+
+        msg('k', data.reply);
         add(5);
         badge('First Question');
-    })
-    .catch(err => {
-        var r = AI.respond(t);
-        msg('k', r.t, r.r);
-        add(5);
-        badge('First Question');
-    });
+    } catch (err) {
+        msg('k', 'Eish, network error or the server is waking up from its nap. Try again in a second, fam!');
+    }
 }
+
 function go(n){document.querySelectorAll('.tab').forEach(function(x){x.classList.toggle('on',x.id==='t-'+n)});document.querySelectorAll('nav button').forEach(function(b){b.classList.toggle('on',b.dataset.go===n)});$('#inbar').style.display=n==='chat'?'flex':'none'}
 document.querySelectorAll('[data-go]').forEach(function(b){b.addEventListener('click',function(){go(b.dataset.go);if(b.dataset.listen)speak('Listen mode is on. Ask a question, then press Play and I’ll read the answer.')})});
+
 $('#send').onclick=function(){ask($('#q').value);$('#q').value=''};
 $('#q').addEventListener('keydown',function(e){if(e.key==='Enter'){$('#send').click()}});
 $('#next').onclick=function(){ask('next hint')};
-$('#luffy').onclick=function(){msg('k',AI.luffy())};
+
+// Luffy Mode triggers the backend with mode: 'luffy'
+$('#luffy').onclick=function(){
+    if(!lastUser){
+        msg('k','Ask me a question first, captain, then press Luffy!');
+        return;
+    }
+    ask(lastUser, true);
+};
+
 $('#logo').onclick=function(){clicks++;if(clicks>=5){$('#luffy').style.display='inline-block';clicks=0}};
 
 var u=null;function speak(t){if(!('speechSynthesis' in window))return;speechSynthesis.cancel();u=new SpeechSynthesisUtterance(t);u.rate=+$('#rate').value;u.lang=LANGS[S.lang][2];speechSynthesis.speak(u)}
@@ -175,13 +75,39 @@ $('#pause').onclick=function(){if('speechSynthesis' in window)speechSynthesis.pa
 $('#replay').onclick=function(){speak(lastBot)};
 $('#rate').oninput=function(){$('#rv').textContent=this.value+'x'};
 
-$('#file').onchange=function(){var f=this.files[0];if(!f)return;var r=new FileReader();r.onload=function(){var p=$('#prev');p.src=r.result;p.hidden=false;$('#camout').innerHTML='';var o=document.createElement('div');o.textContent='Sharp, let’s break this down. I can’t read handwriting offline yet, so type the question in the chat and I’ll guide you. First: what is the question asking you to find?';$('#camout').appendChild(o);var b=document.createElement('button');b.className='btn';b.style.marginTop='10px';b.textContent='Type the question';b.onclick=function(){go('chat');$('#q').focus()};$('#camout').appendChild(b);add(2)};r.readAsDataURL(f)};
+// Vision API integration for homework camera
+$('#file').onchange=function(){
+    var f=this.files[0];if(!f)return;var r=new FileReader();
+    r.onload=async function(){
+        var p=$('#prev');p.src=r.result;p.hidden=false;$('#camout').innerHTML='Analyzing homework image, hang tight...';
+        var base64Data = r.result.split(',')[1];
+        
+        try {
+            var res = await fetch(BACKEND_URL + '/api/vision', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ image: base64Data, mime: f.type, lang: S.lang })
+            });
+            var data = await res.json();
+            if(!res.ok) throw new Error(data.error);
+            
+            $('#camout').innerHTML = '';
+            msg('k', data.reply);
+            add(2);
+        } catch(e) {
+            $('#camout').innerHTML='Eish, couldn’t read the image right now. Type the question in the chat instead!';
+        }
+    };
+    r.readAsDataURL(f);
+};
 
 var sl=$('#lang');Object.keys(LANGS).forEach(function(k){var o=document.createElement('option');o.value=k;o.textContent=LANGS[k][0];sl.appendChild(o)});sl.value=S.lang;
 sl.onchange=function(){S.lang=sl.value;$('#greet').textContent=LANGS[S.lang][1];save()};$('#greet').textContent=LANGS[S.lang][1];
 
 SUBJ.forEach(function(s){var b=document.createElement('button');b.className='pill';b.textContent=s;b.onclick=function(){go('chat');ask('Help me with '+s+'. Where do I start?')};$('#subs').appendChild(b)});
-KB.forEach(function(e){var d=document.createElement('div');d.className='card';var h=document.createElement('b');h.textContent=e.t+' ('+e.s+')';var p=document.createElement('div');p.textContent=e.c;var b=document.createElement('button');b.className='btn alt';b.style.marginTop='8px';b.textContent='Work through it';b.onclick=function(){go('chat');ask(e.k[0])};d.appendChild(h);d.appendChild(p);d.appendChild(b);$('#lib').appendChild(d)});
+
+// Library items trigger chat queries to your backend
+KB.forEach(function(e){var d=document.createElement('div');d.className='card';var h=document.createElement('b');h.textContent=e.t+' ('+e.s+')';var p=document.createElement('div');p.textContent=e.c;var b=document.createElement('button');b.className='btn alt';b.style.marginTop='8px';b.textContent='Work through it';b.onclick=function(){go('chat');ask('Explain '+e.t+' ('+e.s+')')};d.appendChild(h);d.appendChild(p);d.appendChild(b);$('#lib').appendChild(d)});
 
 var qi=0,qs=[],qsc=0;(function(){var d=Math.floor(Date.now()/864e5);for(var i=0;i<5;i++)qs.push(QZ[(d+i)%QZ.length]);showQ()})();
 function showQ(){var z=$('#quiz');z.innerHTML='';if(qi>=qs.length){z.textContent='Done! You got '+qsc+' out of 5. Come back tomorrow for a new quiz.';if(qsc>=4)badge('Quiz Champ');return}
@@ -191,9 +117,7 @@ var q=qs[qi],p=document.createElement('div');p.textContent=(qi+1)+'/5  '+q[0];z.
 var ex=$('#exam');ex.value=S.exam||'';function exOut(){if(!ex.value){$('#examout').textContent='';return}var d=Math.ceil((new Date(ex.value)-new Date(ago()))/864e5);$('#examout').textContent=d>0?d+' days to go. Study a little every day and you’ll be sharp.':(d===0?'Exam day! You’ve got this.':'That date has passed. Pick your next exam.')}
 ex.onchange=function(){S.exam=ex.value;save();exOut()};exOut();
 
-msg('k',AI.open()+'I’m Kasi, your learning buddy. I won’t just hand over answers, we’ll work it out together. Try asking about Newton’s laws, photosynthesis, Pythagoras or fractions, or tell me how you’re feeling about exams.');
+msg('k','Sharp, fam! Ready to cook? I’m Kasi, your learning buddy. Let’s work it out together!');
 save();
 })();
 </script>
-</body>
-</html>
